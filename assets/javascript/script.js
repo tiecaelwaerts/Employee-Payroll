@@ -1,29 +1,32 @@
-// Get a reference to the #add-employees-btn element
 const addEmployeesBtn = document.querySelector('#add-employees-btn');
+const employeeList = document.querySelector('#employee-list');
 
-const collectEmployees = function (employees) {
-    let adding = true;
-    while (adding) {
+const collectEmployees = function () {
+  let employees = [];
+let adding = true;
+    
+while (adding) {
         let firstName = prompt("Enter first name");
         let lastName = prompt("Enter last name");
         let salary = prompt("Enter salary");
 
         salary = isNaN(salary) ? 0 : Number(salary);
     
-    let employee= {
+    let employee = {
         firstName: firstName,
         lastName: lastName,
         salary: salary
     };
 
     employees.push(employee);
+  
+    const listItem = document.createElement('li');
+    listItem.textContent = `${employee.firstName} ${employee.lastName} - $${employee.salary.toFixed(2)}`;
+
     adding = confirm("Do you want to add another employee");
-    console.log(employees);
 }
 return employees;
 };
-let employees = [];
-collectEmployees(employees);
 
 const displayAverageSalary = function (employeesArray) {
   if (employeesArray.length === 0) {
@@ -36,9 +39,10 @@ const displayAverageSalary = function (employeesArray) {
   }
   const averageSalary = totalSalary / employeesArray.length;
 
-  console.log(`The average employee salary between our ${employees.length} employee(s) is $${averageSalary.toFixed(2)}`);
+  console.log(`The average employee salary between our ${employeesArray.length} employee(s) is $${averageSalary.toFixed(2)}`);
+  
+  console.log(`The average employee salary between our ${employeesArray.length} employee(s) is $${Math.round(averageSalary)}`);
 };
-displayAverageSalary(employees);
 
 const getRandomEmployee = function (employeesArray) {
   if (employeesArray.length === 0) {
@@ -50,7 +54,6 @@ const getRandomEmployee = function (employeesArray) {
 
   console.log(`Congratulations to ${randomEmployee.firstName} ${randomEmployee.lastName}, our random drawing winner!`)
 };
-getRandomEmployee(employees);
 
 /*
   ====================
@@ -117,3 +120,4 @@ const trackEmployeeData = function () {
 
 // Add event listener to 'Add Employees' button
 addEmployeesBtn.addEventListener('click', trackEmployeeData);
+
